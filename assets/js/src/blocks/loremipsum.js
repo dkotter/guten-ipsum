@@ -38,12 +38,6 @@ const init = () => {
 		save( { attributes, className } ) {
 			// Rendering in PHP
 			return null;
-			// let content = get( attributes, 'content', [] );
-			// content = content.map( ( p ) => {
-			// 	return <p>{p}</p>
-			// } );
-			//
-			// return <div className={ className }>{ content }</div>;
 		},
 	} );
 
