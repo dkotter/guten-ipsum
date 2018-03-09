@@ -37,18 +37,25 @@ add_action( 'init', 'gti_register_blocks' );
  * @return string
  */
 function gti_render_callback( $attributes ) {
-	$output   = '';
-	$response = wp_remote_request( 'https://baconipsum.com/api/?type=meat-and-filler' );
+	$url       = 'https://baconipsum.com/api/?type=meat-and-filler';
+	$cache_key = md5( $url );
+	$output    = get_transient( $cache_key );
 
-	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-		return $output;
-	}
+	if ( empty( $output ) ) {
+		$response = wp_remote_request( $url );
 
-	$body    = wp_remote_retrieve_body( $response );
-	$content = json_decode( $body );
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			return $output;
+		}
 
-	foreach ( $content as $p ) {
-		$output .= "<p>{$p}</p>";
+		$body    = wp_remote_retrieve_body( $response );
+		$content = json_decode( $body );
+
+		foreach ( $content as $p ) {
+			$output .= "<p>{$p}</p>";
+		}
+
+		set_transient( $cache_key, $output, DAY_IN_SECONDS );
 	}
 
 	return wp_kses_post( $output );
