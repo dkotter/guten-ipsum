@@ -1,0 +1,49 @@
+.btn {
+  background-color: #fff;
+  color: #000;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 20px;
+
+  &.c-call-to-action {
+    background-color: #fff;
+    border: 1px solid #979797;
+
+    &:after {
+      color: #000;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #fff;
+    }
+
+    &.-standard {
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  &.-link {
+    border: 0;
+    color: #000;
+
+    &:hover {
+      border: 0;
+    }
+  }
+
+  &.-cta {
+    background-color: #fff;
+    border: 1px solid #979797;
+    color: #000;
+    padding: 10px 20px;
+    text-transform: uppercase;
+
+    &:hover {
+      color: #000;
+      border: 1px solid #979797;
+    }
+  }
+}

@@ -1,0 +1,526 @@
+
+$header-height: 5rem;
+$header-height-lg: 10rem;
+
+.home {
+	.main-content {
+		padding-bottom: 0;
+	}
+	@include mq( tablet ) {
+		padding-top: $header-height;
+		.primary-header-container {
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			width: 100%;
+			display: block;
+			z-index: 1000;
+			.shell-header .shell-header-nav-wrapper .shell-header-nav {
+				height: calc(100vh - 4.8rem);
+			}
+		}
+		&.admin-bar {
+			.primary-header-container {
+				top: 46px;
+				.shell-header .shell-header-nav-wrapper .shell-header-nav {
+					height: calc(100vh - 4.8rem - 46px);
+				}
+			}
+		}
+	}
+	@include mq(768px) {
+		padding-top: $header-height-lg;
+	}
+	@include mq(783px) {
+		&.admin-bar {
+			.primary-header-container {
+				top: 32px;
+				.shell-header .shell-header-nav-wrapper .shell-header-nav {
+					height: calc(100vh - 4.8rem - 32px);
+				}
+			}
+		}
+	}
+	@include mq( 899px ) {
+		padding-top: $header-height-lg;
+		.primary-header-container {
+			.shell-header .shell-header-nav-wrapper .shell-header-nav {
+				height: 100%;
+			}
+		}
+		&.admin-bar {
+			.primary-header-container {
+				.shell-header .shell-header-nav-wrapper .shell-header-nav {
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+
+.ms-cards-block {
+	&__hero {
+		display: block;
+		overflow: hidden;
+		transition: opacity 0.3s ease-out;
+		margin-bottom: 2rem;
+		background: $white;
+		&.c-carousel li.f-animate-next .c-hero>div,
+		&.c-carousel li.f-animate-next .ic-m-hero-item>div {
+			animation: hero-content-previous-ic cubic-bezier(.16,1,.29,.99) 1.2s both;
+		}
+		&.c-carousel li.f-animate-previous .c-hero>div,
+		&.c-carousel li.f-animate-previous .ic-m-hero-item>div {
+			animation: hero-content-previous-ic cubic-bezier(.16,1,.29,.99) 1.2s both;
+		}
+	}
+	&__inner {
+		position: relative;
+	}
+	.c-pagination {
+		display: block;
+		overflow: hidden;
+		margin: 0;
+		float: none;
+		width: 100%;
+		@include mq( $until:  539px ) {
+			li {
+				&.f-active {
+					&:first-child,
+					&:last-child {
+						> span {
+							border: none;
+						}
+					}
+				}
+			}
+		}
+	}
+	&__sidebar {
+		margin-left: -1.2rem;
+		margin-right: -1.2rem;
+	}
+	@include mq( tablet ) {
+		&__hero,
+		&__sidebar {
+			display: block;
+		}
+		&__hero {
+			position: fixed;
+			top: calc( #{$header-height} + 1.2rem );
+			bottom: 0;
+			left: 1.2rem;
+			right: calc( 50% + 1.2rem);
+			height: calc( 100vh - #{$header-height} - 1.2rem );
+			overflow: hidden;
+			margin-bottom: 0;
+			&.js-unstick {
+				position: absolute;
+				top: auto !important;
+				bottom: 5.4rem;
+				left: 1.2rem;
+				@include mq( 768px ) {
+					left: 1.8rem;
+				}
+				@include mq( 1084px ) {
+					left: 2.4rem;
+				}
+				@include mq( 1600px ) {
+					right: calc( 50% + 2.4rem);
+					left: 2.4rem !important;
+				}
+			}
+			@include mq( 768px ) {
+				top: calc( #{$header-height-lg} + 1.8rem );
+				right: calc( 50% + 1.8rem);
+				left: 1.8rem;
+				height: calc( 100vh - #{$header-height-lg} - 3.6rem );
+			}
+			@include mq( 899px ) {
+				top: calc( #{$header-height-lg} + 1.8rem );
+				height: calc( 100vh - #{$header-height-lg} - 3.6rem );
+			}
+			@include mq( 1084px ) {
+				left: 2.4rem;
+				right: calc( 50% + 2.4rem);
+				top: calc( #{$header-height-lg} + 2.4rem );
+				height: calc( 100vh - #{$header-height-lg} - 4.8rem );
+			}
+			@include mq( 1600px ) {
+				right: calc(50vw + 2.4rem);
+			}
+			@include mq( 1775px ) {
+				left: calc(((100vw - (1600px + 10%)) * 0.5) + 2.4rem);
+			}
+		}
+		&__sidebar {
+			display: block;
+			overflow: hidden;
+			width: calc( 50% + 1.2rem);
+			margin-left: auto;
+			@include mq( 768px ) {
+				margin-right: -1.8rem;
+				width: calc( 50% + 1.8rem);
+			}
+			@include mq( 1084px ) {
+				margin-right: -2.48rem;
+				width: calc( 50% + 2.4rem);
+			}
+		}
+
+	}
+	.admin-bar & {
+		@include mq( tablet ) {
+			&__hero {
+				top: calc( #{$header-height} + 1.2rem + 46px );
+				height: calc( 100vh - #{$header-height} - 46px - 2.4rem );
+			}
+		}
+		@include mq( 768px ) {
+			&__hero {
+				top: calc( #{$header-height-lg} + 1.8rem + 46px );
+				height: calc(100vh - #{$header-height-lg} - 46px - 3.6rem);
+			}
+
+		}
+		@include mq( 783px ) {
+			&__hero {
+				top: calc( #{$header-height-lg} + 1.8rem + 32px );
+				height: calc(100vh - #{$header-height-lg} - 32px - 3.6rem);
+			}
+		}
+		@include mq( 899px ) {
+			&__hero {
+				top: calc( #{$header-height-lg} + 1.8rem + 32px );
+				height: calc(100vh - #{$header-height-lg} - 32px - 3.6rem);
+			}
+		}
+		@include mq( 1084px ) {
+			&__hero {
+				top: calc(#{$header-height-lg} + 2.4rem + 32px);
+				height: calc(100vh - #{$header-height-lg} - 32px - 4.8rem);
+			}
+		}
+		@include mq( 1600px ) {
+			&__hero {
+
+			}
+		}
+	}
+	@include mq( xl ) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+.ms-card {
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	margin-bottom: $pad-double;
+	position: relative;
+
+	&__link-wrapper {
+		.ic-m-hero-item & {
+			width: 100%;
+			height: 100%;
+			max-width: none;
+			position: static;
+			margin: 0;
+			padding: 0;
+			display: block;
+			overflow: hidden;
+		}
+	}
+	&__hero-article,
+	&__link {
+		color: $black;
+		display: block;
+		overflow: hidden;
+		&.ic-m-hero-item {
+			height: 100%;
+			padding: 0;
+			&:before {
+				display: none;
+			}
+		}
+		&:hover,
+		&:active,
+		&:focus {
+			color: $black;
+		}
+	}
+	&__link {
+		//border: 1px solid $white;
+		&:focus {
+			//border: 1px dashed;
+			//outline: none;
+		}
+		&--hero {
+			display: block;
+			width: 100%;
+			height: 100%;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		.image-placeholder {
+			padding-top: 100%;
+			background-color: #f2f2f2;
+		}
+	}
+	&__img-contain {
+		display: block;
+		width: 100%;
+		&--hero {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			margin: 0;
+		}
+		&--square,
+		&--wide {
+			padding-top: 100%;
+		}
+	}
+	&__img {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		img {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	&__content {
+		display: block;
+		background: #fff;
+		position: relative;
+		padding-top: 2rem;
+		max-width: $pad * 41;
+		&--wide {
+			max-width: none;
+		}
+	}
+	&__title {
+		@include font( 2rem, 1.3 );
+		font-weight: $semibold;
+	}
+	&__meta {
+		border: none;
+		font-size: 12px;
+		line-height: 24px;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+		display: block;
+	}
+	&__description {
+		@include font( 1.4rem, 1.714 );
+		color: #5E5E5E;
+		margin-bottom: 3rem;
+		display: block;
+	}
+	&__learn-more {
+		@include font( 1.3rem );
+		color: $black;
+		text-transform: uppercase;
+		outline: none;
+		display: block;
+		position: relative;
+		margin-bottom: 3.5rem;
+		display: block;
+		&:focus {
+			outline: 1px dashed;
+		}
+	}
+	&__learn-more-text {
+		position: relative;
+		display: inline-block;
+	}
+	&__learn-more-icon {
+		display: block;
+		position: absolute;
+		top: .3rem;
+		right: -2.5rem;
+		font-family: "MWF-MDL2";
+	}
+	&--hero {
+		.c-carousel & {
+			height: calc( 100vh - #{$header-height} - 2.4rem);
+			min-height: 45rem;
+			margin-bottom: 0;
+		}
+		.ms-card {
+			&__content {
+				width: 100%;
+				display: block;
+				background: #fff;
+				padding-top: 3rem;
+				max-width: $pad * 41;
+				position: absolute;
+				height: auto;
+				top: auto;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: 0;
+				text-align: left;
+			}
+			&__content-inner {
+				display: block;
+				max-width: $pad * 30;
+			}
+			&__title {
+				@include font( 3rem, 1.1333, $font-sans, $semibold);
+				margin-bottom: 3rem;
+			}
+			&__description {
+				color: $black;
+				margin-bottom: 3.5rem;
+			}
+
+		}
+
+		.admin-bar & {
+			height: calc( 100vh - #{$header-height} - 46px -  2.4rem );
+			@include mq( tablet ) {
+				height: 100%;
+				top: 0;
+			}
+		}
+		@media screen and (max-width: 46.25em) and (max-height: 56.25em) {
+			// for short and small screens
+			.c-carousel & {
+				min-height: 60rem;
+			}
+		}
+		@media screen and (min-width: 46.25em) and (max-height: 56.25em) {
+			// for short and wide screens
+			.c-carousel & {
+				min-height: 0px;
+			}
+		}
+		@media screen and (max-height: 56.25em) {
+			// for short screens
+			.ms-card {
+				&__content {
+					padding: 1.2rem;
+					max-width: 50rem;
+				}
+				&__content-inner {
+					max-width: none;
+				}
+				&__meta {
+					margin-bottom: 1rem;
+					line-height: 1.4;
+				}
+				&__title {
+					font-size: 2.4rem;
+					margin-bottom: 1rem;
+				}
+				&__description {
+					margin-bottom: 1rem;
+				}
+				&__learn-more {
+					margin-bottom: 2rem;
+				}
+			}
+		}
+		@include mq( tablet ) {
+			.c-carousel & {
+				height: 100%;
+				top: 0;
+			}
+		}
+	}
+
+	@include mq( tablet ) {
+		&--hero {
+			margin: 0;
+			.ms-card {
+				&__img-contain {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					margin: 0;
+				}
+			}
+		}
+		&__img-contain {
+			&--wide {
+				padding-top: 44%;
+			}
+		}
+		&--wide {
+			width: 100%;
+			max-width: 100%;
+			flex: 1 1 100%;
+		}
+	}
+}
+
+// a11y
+a.ms-card__link {
+	@extend %focus-border;
+}
+
+.ms-cards-block {
+	.theme-dark .theme-light a.c-call-to-action, .theme-dark .theme-light button.c-call-to-action, .theme-light a.c-call-to-action, .theme-light button.c-call-to-action, .theme-dark .theme-light a.c-call-to-action, .theme-dark .theme-light button.c-call-to-action, .theme-light a.c-call-to-action, .theme-light button.c-call-to-action {
+		font-size: inherit;
+		display: block;
+		max-width: 100%;
+		padding: inherit;
+		overflow: hidden;
+		border: 3px solid $white;
+		color: inherit;
+		background: inherit;
+		line-height: inherit;
+		text-decoration: inherit;
+		text-align: inherit;
+		letter-spacing: inherit;
+		white-space: inherit;
+		transition: all .3s ease-out;
+		background-color: #e6e6e6;
+		&:after {
+			content: '';
+		}
+		&:focus,
+		&:focus:not(.x-hidden-focus) {
+			border: 3px dashed;
+			outline: none;
+			background: inherit;
+			span {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+@keyframes hero-content-next-ic {
+	0% {
+		transform: translateX(40px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@keyframes hero-content-previous-ic {
+	0% {
+		transform: translateX(-40px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
