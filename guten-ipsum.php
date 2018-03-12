@@ -17,10 +17,17 @@ function gti_register_blocks() {
 	wp_register_script(
 		'blocks',
 		plugins_url( 'assets/js/dist/blocks.bundle.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-element' )
+		array( 'wp-blocks', 'wp-element' ),
+		'0.1.0'
 	);
 
 	register_block_type( 'gti/loremipsum', array(
+		'attributes'      => array(
+			'paragraphs'  => array(
+				'type'    => 'number',
+				'default' => 5,
+			),
+		),
 		'editor_script'   => 'blocks',
 		'render_callback' => 'gti_render_callback'
 	) );
@@ -37,7 +44,8 @@ add_action( 'init', 'gti_register_blocks' );
  * @return string
  */
 function gti_render_callback( $attributes ) {
-	$url       = 'https://baconipsum.com/api/?type=meat-and-filler';
+	$paragraphs = $attributes['paragraphs'] ?: 5;
+	$url       = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' . absint( $paragraphs );
 	$cache_key = md5( $url );
 	$output    = get_transient( $cache_key );
 

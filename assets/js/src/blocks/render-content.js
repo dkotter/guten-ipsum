@@ -1,6 +1,3 @@
-// Import needed helper function
-import { get } from 'lodash';
-
 const { Component } = wp.element;
 
 /**
@@ -16,10 +13,19 @@ class RenderIpsum extends Component {
 	}
 
 	/**
-	 * Perform our AJAX request when the component loads
+	 * Get our data when the component loads
 	 */
 	componentDidMount() {
-		$.ajax( { url: 'https://baconipsum.com/api/?type=meat-and-filler', type: 'GET' } ).done( ( data ) => {
+		this.getData();
+	}
+
+	/**
+	 * Run an AJAX request to get the data and set the state
+	 */
+	getData() {
+		const url = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' + this.props.paragraphs;
+
+		$.ajax( { url: url, type: 'GET' } ).done( ( data ) => {
 			// Save the data to our state
 			if ( data && data.length > 0 ) {
 				this.setState( { data } );
@@ -33,7 +39,7 @@ class RenderIpsum extends Component {
 	 * @return {*}
 	 */
 	render() {
-		const content = get( this.state, 'data', [] );
+		const content = this.state.data ? this.state.data : [];
 
 		// If no content yet, show loading message
 		if ( content.length === 0 ) {

@@ -1,6 +1,5 @@
-/* global wp, lodash */
+/* global wp */
 
-import { get } from 'lodash';
 import RenderIpsum from './render-content';
 
 /**
@@ -11,7 +10,8 @@ const init = () => {
 	/**
 	 * Internal block libraries
 	 */
-	const { registerBlockType } = wp.blocks;
+	const { registerBlockType, InspectorControls } = wp.blocks;
+	const { RangeControl } = wp.components;
 
 	/**
 	 * Register our block
@@ -26,16 +26,34 @@ const init = () => {
 				type: 'array',
 				source: 'children',
 				selector: 'p',
+			},
+			paragraphs: {
+				type: 'number',
+				default: 5
 			}
 		},
 
-		edit( { setAttributes } ) {
-			return (
-				<RenderIpsum setAttributes={ setAttributes } />
-			)
+		edit( { attributes, setAttributes, isSelected } ) {
+			const { paragraphs } = attributes;
+			const inspectorControls = isSelected && (
+					<InspectorControls key="inspector">
+						<RangeControl
+							label={ 'Number of paragraphs' }
+							value={ paragraphs }
+							onChange={ ( value ) => setAttributes( { paragraphs: value } ) }
+							min={ 1 }
+							max={ 20 }
+						/>
+					</InspectorControls>
+			);
+
+			return [
+				inspectorControls,
+				<RenderIpsum paragraphs={ paragraphs } setAttributes={ setAttributes } />
+			]
 		},
 
-		save( { attributes, className } ) {
+		save() {
 			// Rendering in PHP
 			return null;
 		},
