@@ -27,6 +27,10 @@ function gti_register_blocks() {
 				'type'    => 'number',
 				'default' => 5,
 			),
+			'service'     => array(
+				'type'    => 'string',
+				'default' => 'bacon-ipsum',
+			)
 		),
 		'editor_script'   => 'blocks',
 		'render_callback' => 'gti_render_callback'
@@ -44,8 +48,22 @@ add_action( 'init', 'gti_register_blocks' );
  * @return string
  */
 function gti_render_callback( $attributes ) {
+	$service    = $attributes['service'] ?: 'bacon-ipsum';
 	$paragraphs = $attributes['paragraphs'] ?: 5;
-	$url       = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' . absint( $paragraphs );
+	$url        = '';
+
+	switch ( $service ) {
+		case 'bacon-ipsum':
+			$url = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' . absint( $paragraphs );
+			break;
+		case 'baseball-ipsum':
+			$url = 'http://baseballipsum.apphb.com/api/?paras=' . absint( $paragraphs );
+			break;
+		case 'pony-ipsum':
+			$url = 'http://ponyipsum.com/api/?type=pony-and-filler&paras=' . absint( $paragraphs );
+			break;
+	}
+
 	$cache_key = md5( $url );
 	$output    = get_transient( $cache_key );
 

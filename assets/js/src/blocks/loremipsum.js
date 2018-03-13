@@ -11,7 +11,13 @@ const init = () => {
 	 * Internal block libraries
 	 */
 	const { registerBlockType, InspectorControls } = wp.blocks;
-	const { RangeControl } = wp.components;
+	const { RangeControl, SelectControl } = wp.components;
+
+	const serviceOptions = [
+		{ value: 'bacon-ipsum', label: 'BaconIpsum.com' },
+		{ value: 'baseball-ipsum', label: 'BaseballIpsum.com' },
+		{ value: 'pony-ipsum', label: 'PonyIpsum.com' },
+	];
 
 	/**
 	 * Register our block
@@ -27,6 +33,10 @@ const init = () => {
 				source: 'children',
 				selector: 'p',
 			},
+			service: {
+				type: 'string',
+				default: 'bacon-ipsum',
+			},
 			paragraphs: {
 				type: 'number',
 				default: 5
@@ -34,9 +44,15 @@ const init = () => {
 		},
 
 		edit( { attributes, setAttributes, isSelected } ) {
-			const { paragraphs } = attributes;
+			const { paragraphs, service } = attributes;
 			const inspectorControls = isSelected && (
 					<InspectorControls key="inspector">
+						<SelectControl
+							label={ 'Lorem Ipsum Service' }
+							value={ service }
+							options={ serviceOptions }
+							onChange={ ( value ) => setAttributes( { service: value } ) }
+						/>
 						<RangeControl
 							label={ 'Number of paragraphs' }
 							value={ paragraphs }
@@ -49,7 +65,7 @@ const init = () => {
 
 			return [
 				inspectorControls,
-				<RenderIpsum paragraphs={ paragraphs } setAttributes={ setAttributes } />
+				<RenderIpsum service={ service } paragraphs={ paragraphs } setAttributes={ setAttributes } />
 			]
 		},
 

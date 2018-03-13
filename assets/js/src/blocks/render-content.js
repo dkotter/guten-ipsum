@@ -31,13 +31,31 @@ class RenderIpsum extends Component {
 			this.setState( { data: [] } );
 			this.getData();
 		}
+
+		if ( ! _isEqual( _get( prevProps, 'service' ), _get( this.props, 'service' ) ) ) {
+			this.setState( { data: [] } );
+			this.getData();
+		}
 	}
 
 	/**
 	 * Run an AJAX request to get the data and set the state
 	 */
 	getData() {
-		const url = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' + this.props.paragraphs;
+		const service = this.props.service;
+		let url       = '';
+
+		switch ( service ) {
+			case 'bacon-ipsum':
+				url = 'https://baconipsum.com/api/?type=meat-and-filler&paras=' + this.props.paragraphs;
+				break;
+			case 'baseball-ipsum':
+				url = 'http://baseballipsum.apphb.com/api/?paras=' + this.props.paragraphs;
+				break;
+			case 'pony-ipsum':
+				url = 'http://ponyipsum.com/api/?type=pony-and-filler&paras=' + this.props.paragraphs;
+				break;
+		}
 
 		$.ajax( { url: url, type: 'GET' } ).done( ( data ) => {
 			// Save the data to our state
