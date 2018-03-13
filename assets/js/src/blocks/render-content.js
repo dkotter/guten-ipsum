@@ -1,15 +1,16 @@
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
+
 const { Component } = wp.element;
 
 /**
  * Create our render component
  */
 class RenderIpsum extends Component {
-	constructor() {
-		super( ...arguments );
+	constructor( props ) {
+		super( props );
 
-		this.state = {
-			data: []
-		};
+		this.state = { data: _get( this.props, 'data', [] ) };
 	}
 
 	/**
@@ -17,6 +18,19 @@ class RenderIpsum extends Component {
 	 */
 	componentDidMount() {
 		this.getData();
+	}
+
+	/**
+	 * When the props of a component changes, update our data.
+	 *
+	 * @param prevProps
+	 * @param prevState
+	 */
+	componentDidUpdate( prevProps, prevState ) {
+		if ( ! _isEqual( _get( prevProps, 'paragraphs' ), _get( this.props, 'paragraphs' ) ) ) {
+			this.setState( { data: [] } );
+			this.getData();
+		}
 	}
 
 	/**
@@ -39,11 +53,11 @@ class RenderIpsum extends Component {
 	 * @return {*}
 	 */
 	render() {
-		const content = this.state.data ? this.state.data : [];
+		const content = _get( this.state, 'data', [] );
 
 		// If no content yet, show loading message
 		if ( content.length === 0 ) {
-			return "loading !";
+			return 'loading !';
 		}
 
 		// Set the attributes, so we can use in our save function
