@@ -14,6 +14,11 @@ License: GPL2+
  * @return void
  */
 function gti_register_blocks() {
+	if ( ! function_exists( 'register_block_type' ) ) {
+		add_action( 'admin_notices', 'gti_plugin_notice' );
+		return;
+	}
+
 	wp_register_script(
 		'blocks',
 		plugins_url( 'assets/js/dist/blocks.bundle.js', __FILE__ ),
@@ -37,6 +42,28 @@ function gti_register_blocks() {
 	) );
 }
 add_action( 'init', 'gti_register_blocks' );
+
+/**
+ * Output an error message.
+ *
+ * If the Gutenberg plugin isn't active
+ * and the current user has permissions to
+ * activate plugins, show an error message
+ * letting them know the plugin is needed.
+ *
+ * @return void
+ */
+function gti_plugin_notice() {
+	if ( current_user_can( 'activate_plugins' ) ) :
+?>
+
+		<div class="error message">
+			<p>The Gutenberg plugin must be active to utilize the GutenIpsum plugin. Find it here: https://wordpress.org/plugins/gutenberg/</p>
+		</div>
+
+<?php
+	endif;
+}
 
 /**
  * Render the block for the front end.
