@@ -47,12 +47,6 @@ const init = () => {
 			const { paragraphs, service } = attributes;
 			const inspectorControls = isSelected && (
 					<InspectorControls key="inspector">
-						<SelectControl
-							label={ 'Lorem Ipsum Service' }
-							value={ service }
-							options={ serviceOptions }
-							onChange={ ( value ) => setAttributes( { service: value } ) }
-						/>
 						<RangeControl
 							label={ 'Number of paragraphs' }
 							value={ paragraphs }
